@@ -1,0 +1,16 @@
+[
+{
+  "modid": "rsg",
+  "name": "Realistic Structure Generation",
+  "description": "RTG Structure addon",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/Team-RTG/Realistic-Structure-Generation",
+  "updateUrl": "",
+  "authorList": ["Topisani"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
