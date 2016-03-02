@@ -8,7 +8,8 @@ public class RSGException extends Exception {
 	private String identifier = "";
 
 	public enum Type {
-		CONFIG_SYNTAX
+		CONFIG_SYNTAX,
+		STUPID_DEVELOPER
 	}
 
 	public RSGException(Type type, String message) {
@@ -26,14 +27,14 @@ public class RSGException extends Exception {
 		String s = "RSG experienced a %s error.";
 		if (!this.message.isEmpty()) s += " Reason: " + identifier;
 		if (!this.identifier.isEmpty()) s += "Crash identifier: " + identifier;
-		Logger.error(s, type);
+		Logger.error(s, type.name().replaceAll("_", " ").toLowerCase());
 	}
 
 	public void crash() {
 		String s = "RSG experienced a %s error.";
 		if (!this.message.isEmpty()) s += " Reason: %s";
 		if (!this.identifier.isEmpty()) s += "Crash identifier: " + identifier;
-		Logger.fatal(s, this, type);
+		Logger.fatal(s, this, type.name().replaceAll("_", " ").toLowerCase());
 	}
 
 	public String getMessage() {

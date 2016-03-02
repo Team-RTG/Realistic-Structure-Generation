@@ -2,10 +2,7 @@ package teamrtg.rsg.world.gen.structure.village;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import teamrtg.rsg.util.Logger;
-
-import java.util.Random;
+import teamrtg.rsg.event.EventManagerRSG;
 
 
 /**
@@ -13,31 +10,63 @@ import java.util.Random;
  */
 public class VillageMaterialSwap {
 
-    private IBlockState[] defaultBlock;
-    private IBlockState[] materialBlock = null;
+	public enum EnumSwap {
+		PATH,
+		FOUNDATION,
+		WALL,
+		ROOF,
+		HUT_ROOF,
+		CORNER,
+		STAIRS,
+		BLACKSMITH_ROOF,
+		FENCE,
+		DOOR,
+		CHURCH_BLOCK,
+		CHURCH_STAIRS,
+		WINDOW,
+		WINDOW_SHUTTERS,
+		CROPS,
+		FARMLAND,
+		FARM_BORDER,
+		GARDEN_GROUND,
+		TABLE_TOP,
+		CHAIR,
+		CHOPPING_BLOCK,
+		ANVIL,
+		WELL_POST,
+		WELL_BLOCK,
+		LAMP_POST,
+		LAMP_BLOCK,
+		LAMP_TORCH;
+
+		public static EnumSwap fromName(String s) {
+			for(EnumSwap e : EnumSwap.values()){
+				if(s == e.name()) return e;
+			}
+			return null;
+		}
+	}
+
+    private IBlockState[] materialBlocks = null;
     private boolean preserveMeta;
 
     /**
-     * @param defaultBlock the block to replace
+     * @param states possible blocks
      */
-    public VillageMaterialSwap(IBlockState... defaultBlock) {
-        this.defaultBlock = defaultBlock;
+    public VillageMaterialSwap(IBlockState... states) {
+        this.materialBlocks = states;
     }
 
     /**
      * Will turn on preserveMeta
-     * @param defaultBlock the block to replace
+     * @param blocks possible blocks
      */
-    public VillageMaterialSwap(Block... defaultBlock) {
-	    this.defaultBlock = new IBlockState[0];
-	    for (int i = 0; i < defaultBlock.length; i++) {
-		    this.defaultBlock[i] = defaultBlock[i].getDefaultState();
+    public VillageMaterialSwap(Block... blocks) {
+	    this.materialBlocks = new IBlockState[0];
+	    for (int i = 0; i < blocks.length; i++) {
+		    this.materialBlocks[i] = blocks[i].getDefaultState();
 	    }
         this.preserveMeta = true;
-    }
-
-    public IBlockState getDefault() {
-        return defaultBlock;
     }
 
     public IBlockState get() {
@@ -45,26 +74,31 @@ public class VillageMaterialSwap {
     }
 
     public IBlockState get(int defaultMeta) {
-        IBlockState result;
-	    int rand = Minecraft.getMinecraft().theWorld
-	    if (materialBlock != null) result = materialBlock;
-        else result = defaultBlock;
+        int r = EventManagerRSG.world.rand.nextInt(materialBlocks.length - 1);
+	    IBlockState result = materialBlocks[r];
         if (preserveMeta) result = result.getBlock().getStateFromMeta(defaultMeta);
         return result;
     }
 
+	public IBlockState[] getAll() {
+		return this.materialBlocks;
+	}
+
     /**
      * Sets the material specific blockstate
      */
-    public void set(IBlockState materialBlock) {
-        this.materialBlock = materialBlock;
+    public void set(IBlockState... materialBlock) {
+        this.materialBlocks = materialBlock;
     }
 
     /**
      * Will preserve the metadata of the original block when replaced.
      */
-    public void set(Block materialBlock) {
-        this.materialBlock = materialBlock.getDefaultState();
+    public void set(Block... materialBlock) {
+	    this.materialBlocks = new IBlockState[0];
+	    for (int i = 0; i < materialBlock.length; i++) {
+			this.materialBlocks[i] = materialBlock[i].getDefaultState();
+	    }
         this.preserveMeta = true;
     }
 
@@ -73,22 +107,5 @@ public class VillageMaterialSwap {
      */
     public void setPreserveMeta(boolean preserveMeta) {
         this.preserveMeta = preserveMeta;
-    }
-
-    /**
-     * Get the replacement BlockState for oldBlock
-     * @param oldBlock the BlockState to replace
-     * @return the block to replace oldBlock with. Will have metadata from oldBlock if preserveMetadata is on.
-     */
-    public IBlockState replace(IBlockState oldBlock) {
-        if (oldBlock.getBlock() != this.defaultBlock) {
-            Logger.debug("VillageMaterialSwap was asked to replace a block that didnt match it. This should not have happened");
-            return oldBlock;
-        }
-        IBlockState newBlock = this.materialBlock;
-        if (preserveMeta && newBlock != null) {
-            newBlock = newBlock.getBlock().getStateFromMeta(oldBlock.getBlock().getMetaFromState(oldBlock));
-        }
-        return newBlock;
     }
 }
