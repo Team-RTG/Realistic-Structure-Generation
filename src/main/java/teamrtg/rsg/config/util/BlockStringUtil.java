@@ -1,14 +1,15 @@
-package teamrtg.rsg.util;
+package teamrtg.rsg.config.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import teamrtg.rsg.util.RSGException;
 import teamrtg.rsg.util.RSGException.Type;
 import teamrtg.rsg.world.gen.structure.village.VillageMaterialSwap;
 
 /**
  * @author topisani
  */
-public class BlockUtil {
+public class BlockStringUtil {
 
 	public static String stateToString(IBlockState blockState) {
 		return blockState.getBlock().getRegistryName() + "/" + blockState.getBlock().getMetaFromState(blockState);
@@ -21,7 +22,7 @@ public class BlockUtil {
 		return s;
 	}
 
-	public static IBlockState stringToState(String string) throws RSGException{
+	public static IBlockState stringToState(String string) throws RSGException {
 		String[] s = string.split("/");
 		Block b = Block.getBlockFromName(s[0]);
 		IBlockState bs;
@@ -53,6 +54,6 @@ public class BlockUtil {
 				return new VillageMaterialSwap(b);
 			}
 		}
-		throw new RSGException(Type.STUPID_DEVELOPER, "Beats me, but hey, I'm just the stupid developer.", "BlockUtil.stringsToSwap()");
+		throw new RSGException(Type.STUPID_DEVELOPER, "Beats me, but hey, I'm just the stupid developer.", "BlockStringUtil.stringsToSwap()");
 	}
 }

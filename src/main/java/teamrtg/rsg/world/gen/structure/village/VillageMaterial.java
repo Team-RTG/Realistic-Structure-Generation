@@ -1,5 +1,6 @@
 package teamrtg.rsg.world.gen.structure.village;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
@@ -58,10 +59,17 @@ public class VillageMaterial {
 	public VillageMaterialSwap set(EnumSwap swap, IBlockState... bs) {
 		return swaps.put(swap, new VillageMaterialSwap(bs));
 	}
+	public VillageMaterialSwap set(EnumSwap swap, Block... b) {
+		return swaps.put(swap, new VillageMaterialSwap(b));
+	}
 	public VillageMaterialSwap set(EnumSwap enumSwap, VillageMaterialSwap swap) {
 		return swaps.put(enumSwap, swap);
 	}
     public static VillageMaterial getForBiome(BiomeGenBase biome) {
         return new VillageMaterial("");
     }
+
+	public void setBiomes(int[] biomeIds) {
+		this.biomes = biomeIds;
+	}
 }
