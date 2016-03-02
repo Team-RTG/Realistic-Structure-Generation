@@ -1,153 +1,113 @@
 package teamrtg.rsg.world.gen.structure.village;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.world.biome.BiomeGenBase;
 
-import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Holds all village blocks that should be replaced for the biome it belongs to
  */
-public class VillageMaterial {
+public enum VillageMaterial {
 
-    public final VillageMaterialSwap path = new VillageMaterialSwap(Blocks.gravel.getDefaultState());
-    public final VillageMaterialSwap foundation = new VillageMaterialSwap(Blocks.cobblestone.getDefaultState());
-    public final VillageMaterialSwap wall = new VillageMaterialSwap(Blocks.planks.getDefaultState());
-    public final VillageMaterialSwap roof = new VillageMaterialSwap(Blocks.oak_stairs);
-    public final VillageMaterialSwap hut_roof = new VillageMaterialSwap(Blocks.log.getDefaultState());
-    public final VillageMaterialSwap corner = new VillageMaterialSwap(Blocks.log.getDefaultState());
-    public final VillageMaterialSwap stairs = new VillageMaterialSwap(Blocks.stone_stairs);
-    public final VillageMaterialSwap blacksmith_roof = new VillageMaterialSwap(Blocks.stone_slab);
-    public final VillageMaterialSwap fence = new VillageMaterialSwap(Blocks.oak_fence.getDefaultState());
-    public final VillageMaterialSwap door = new VillageMaterialSwap(Blocks.oak_door);
-    public final VillageMaterialSwap church_block = new VillageMaterialSwap(Blocks.cobblestone.getDefaultState());
-    public final VillageMaterialSwap church_stairs = new VillageMaterialSwap(Blocks.stone_stairs);
-    public final VillageMaterialSwap window = new VillageMaterialSwap(Blocks.glass_pane.getDefaultState());
-    public final VillageMaterialSwap window_shutters = new VillageMaterialSwap(Blocks.log.getDefaultState());
-    /** If its represented multiple times, it has higher chances */
-    public final Block[] crops = {Blocks.wheat, Blocks.wheat, Blocks.wheat, Blocks.carrots, Blocks.potatoes};
-    public final VillageMaterialSwap farmland = new VillageMaterialSwap(Blocks.farmland.getDefaultState());
-    public final VillageMaterialSwap farm_border = new VillageMaterialSwap(Blocks.log.getDefaultState());
-    public final VillageMaterialSwap garden_ground = new VillageMaterialSwap(Blocks.grass.getDefaultState());
-    public final VillageMaterialSwap table_top = new VillageMaterialSwap(Blocks.wooden_pressure_plate.getDefaultState());
-    public final VillageMaterialSwap chair = new VillageMaterialSwap(Blocks.oak_stairs);
-    public final VillageMaterialSwap chopping_block = new VillageMaterialSwap(Blocks.double_stone_slab.getDefaultState());
-    public final VillageMaterialSwap anvil = new VillageMaterialSwap(Blocks.double_stone_slab.getDefaultState());
-    public final VillageMaterialSwap well_post = new VillageMaterialSwap(Blocks.oak_fence.getDefaultState());
-    public final VillageMaterialSwap well_block = new VillageMaterialSwap(Blocks.cobblestone.getDefaultState());
-    public final VillageMaterialSwap lamp_post = new VillageMaterialSwap(Blocks.oak_fence.getDefaultState());
-    public final VillageMaterialSwap lamp_block = new VillageMaterialSwap(Blocks.wool.getStateFromMeta(EnumDyeColor.BLACK.getMetadata()));
-    public final boolean lamp_torches = true;
+	PATH(new VillageMaterialSwap(Blocks.gravel.getDefaultState())),
+	FOUNDATION(new VillageMaterialSwap(Blocks.cobblestone.getDefaultState())),
+	WALL(new VillageMaterialSwap(Blocks.planks.getDefaultState())),
+	ROOF(new VillageMaterialSwap(Blocks.oak_stairs)),
+	HUT_ROOF(new VillageMaterialSwap(Blocks.log.getDefaultState())),
+	CORNER(new VillageMaterialSwap(Blocks.log.getDefaultState())),
+	STAIRS(new VillageMaterialSwap(Blocks.stone_stairs)),
+	BLACKSMITH_ROOF(new VillageMaterialSwap(Blocks.stone_slab)),
+	FENCE(new VillageMaterialSwap(Blocks.oak_fence.getDefaultState())),
+	DOOR(new VillageMaterialSwap(Blocks.oak_door)),
+	CHURCH_BLOCK(new VillageMaterialSwap(Blocks.cobblestone.getDefaultState())),
+	CHURCH_STAIRS(new VillageMaterialSwap(Blocks.stone_stairs)),
+	WINDOW(new VillageMaterialSwap(Blocks.glass_pane.getDefaultState())),
+	WINDOW_SHUTTERS(new VillageMaterialSwap(Blocks.log.getDefaultState())),
+	CROPS(),
+	FARMLAND(new VillageMaterialSwap(Blocks.farmland.getDefaultState())),
+	FARM_BORDER(new VillageMaterialSwap(Blocks.log.getDefaultState())),
+	GARDEN_GROUND(new VillageMaterialSwap(Blocks.grass.getDefaultState())),
+	TABLE_TOP(new VillageMaterialSwap(Blocks.wooden_pressure_plate.getDefaultState())),
+	CHAIR(new VillageMaterialSwap(Blocks.oak_stairs)),
+	CHOPPING_BLOCK(new VillageMaterialSwap(Blocks.double_stone_slab.getDefaultState())),
+	ANVIL(new VillageMaterialSwap(Blocks.double_stone_slab.getDefaultState())),
+	WELL_POST(new VillageMaterialSwap(Blocks.oak_fence.getDefaultState())),
+	WELL_BLOCK(new VillageMaterialSwap(Blocks.cobblestone.getDefaultState())),
+	LAMP_POST(new VillageMaterialSwap(Blocks.oak_fence.getDefaultState())),
+	LAMP_BLOCK(new VillageMaterialSwap(Blocks.wool.getStateFromMeta(EnumDyeColor.BLACK.getMetadata()))),
+	LAMP_TORCH(new VillageMaterialSwap(Blocks.torch)));
 
-    public enum Preset {
-        BASE,
-        SAND,
-        ACACIA,
-        SPRUCE,
-        DARK_OAK,
-        BIRCH,
-        ICE,
-        JUNGLE,
-        STONE_BRICK,
-        RED_SAND
-    }
+    public String name;
+new VillageMaterialSwap(Blocks.gravel.getDefaultState())
+new VillageMaterialSwap(Blocks.cobblestone.getDefaultState())
+new VillageMaterialSwap(Blocks.planks.getDefaultState())
+new VillageMaterialSwap(Blocks.oak_stairs)
+new VillageMaterialSwap(Blocks.log.getDefaultState())
+new VillageMaterialSwap(Blocks.log.getDefaultState())
+new VillageMaterialSwap(Blocks.stone_stairs)
+new VillageMaterialSwap(Blocks.stone_slab)
+new VillageMaterialSwap(Blocks.oak_fence.getDefaultState())
+new VillageMaterialSwap(Blocks.oak_door)
+new VillageMaterialSwap(Blocks.cobblestone.getDefaultState())
+new VillageMaterialSwap(Blocks.stone_stairs)
+new VillageMaterialSwap(Blocks.glass_pane.getDefaultState())
+new VillageMaterialSwap(Blocks.log.getDefaultState())
+/** If its represented multiple times, it has higher chances */
+ {Blocks.wheat, Blocks.wheat, Blocks.wheat, Blocks.carrots, Blocks.potatoes}
+new VillageMaterialSwap(Blocks.farmland.getDefaultState())
+new VillageMaterialSwap(Blocks.log.getDefaultState())
+new VillageMaterialSwap(Blocks.grass.getDefaultState())
+new VillageMaterialSwap(Blocks.wooden_pressure_plate.getDefaultState())
+new VillageMaterialSwap(Blocks.oak_stairs)
+new VillageMaterialSwap(Blocks.double_stone_slab.getDefaultState())
+new VillageMaterialSwap(Blocks.double_stone_slab.getDefaultState())
+new VillageMaterialSwap(Blocks.oak_fence.getDefaultState())
+new VillageMaterialSwap(Blocks.cobblestone.getDefaultState())
+new VillageMaterialSwap(Blocks.oak_fence.getDefaultState())
+new VillageMaterialSwap(Blocks.wool.getStateFromMeta(EnumDyeColor.BLACK.getMetadata()))
+    public  true;
 
-    public VillageMaterial(Preset preset) {
+    public VillageMaterial(String name) {
 
-        switch ( preset ) {
-            case SAND:
-                path.set(Blocks.sandstone.getDefaultState());
-                foundation.set(Blocks.sandstone.getDefaultState());
-                wall.set(Blocks.sandstone.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()));
-                corner.set(Blocks.sandstone.getDefaultState());
-                roof.set(Blocks.sandstone_stairs);
-                stairs.set(Blocks.sandstone_stairs);
-                blacksmith_roof.set(Blocks.stone_slab.getStateFromMeta(BlockStoneSlab.EnumType.SAND.getMetadata()));
-                break;
-            case ACACIA:
-                wall.set(Blocks.planks.getStateFromMeta(BlockPlanks.EnumType.ACACIA.getMetadata()));
-                corner.set(Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.ACACIA));
-                roof.set(Blocks.acacia_stairs);
-                fence.set(Blocks.acacia_fence);
-                door.set(Blocks.acacia_door);
-                church_block.set(Blocks.red_sandstone.getDefaultState().withProperty(BlockRedSandstone.TYPE, BlockRedSandstone.EnumType.SMOOTH));
-                church_stairs.set(Blocks.red_sandstone_stairs);
-                window.set(Blocks.stained_glass_pane.getDefaultState());
-                window_shutters.set(Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.ACACIA));
-                hut_roof.set(Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.ACACIA));
-                fence.set(Blocks.acacia_fence.getDefaultState());
-                farm_border.set(Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.ACACIA));
-                chair.set(Blocks.acacia_stairs);
-                anvil.set(Blocks.anvil.getDefaultState());
-                well_post.set(Blocks.acacia_fence.getDefaultState());
-                break;
-            case SPRUCE:
-                wall.set(Blocks.planks.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()));
-                corner.set(Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE));
-                roof.set(Blocks.spruce_stairs);
-                fence.set(Blocks.spruce_fence);
-                door.set(Blocks.spruce_door);
-                break;
-            case DARK_OAK:
-                wall.set(Blocks.planks.getStateFromMeta(BlockPlanks.EnumType.DARK_OAK.getMetadata()));
-                corner.set(Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK));
-                roof.set(Blocks.dark_oak_stairs);
-                fence.set(Blocks.dark_oak_fence);
-                door.set(Blocks.dark_oak_door);
-                break;
-            case BIRCH:
-                wall.set(Blocks.planks.getStateFromMeta(BlockPlanks.EnumType.BIRCH.getMetadata()));
-                corner.set(Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH));
-                roof.set(Blocks.birch_stairs);
-                fence.set(Blocks.birch_fence);
-                door.set(Blocks.birch_door);
-                break;
-            case ICE:
-                path.set(Blocks.packed_ice.getDefaultState());
-                wall.set(Blocks.packed_ice.getDefaultState());
-                foundation.set(Blocks.snow.getDefaultState());
-                corner.set(Blocks.snow.getDefaultState());
-                roof.set(Blocks.snow.getDefaultState());
-                stairs.set(Blocks.snow_layer.getDefaultState().withProperty(BlockSnow.LAYERS, 4));
-                blacksmith_roof.set(Blocks.snow_layer.getDefaultState().withProperty(BlockSnow.LAYERS, 4));
-                fence.set(Blocks.birch_fence);
-                door.set(Blocks.spruce_door);
-                break;
-            case JUNGLE:
-                wall.set(Blocks.planks.getStateFromMeta(BlockPlanks.EnumType.JUNGLE.getMetadata()));
-                corner.set(Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE));
-                roof.set(Blocks.jungle_stairs);
-                fence.set(Blocks.jungle_fence);
-                door.set(Blocks.jungle_door);
-                break;
-            case STONE_BRICK:
-                wall.set(Blocks.stonebrick.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.DEFAULT));
-                foundation.set(Blocks.stonebrick.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.MOSSY));
-                corner.set(Blocks.stonebrick.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CHISELED));
-                roof.set(Blocks.stone_brick_stairs);
-                stairs.set(Blocks.stone_brick_stairs);
-                blacksmith_roof.set(Blocks.stone_slab.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.BRICK));
-                fence.set(Blocks.cobblestone_wall);
-                door.set(Blocks.spruce_door);
-                break;
-            case RED_SAND:
-                path.set(Blocks.red_sandstone.getDefaultState());
-                foundation.set(Blocks.red_sandstone.getDefaultState());
-                wall.set(Blocks.red_sandstone.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()));
-                corner.set(Blocks.red_sandstone.getDefaultState());
-                roof.set(Blocks.red_sandstone_stairs);
-                stairs.set(Blocks.red_sandstone_stairs);
-                blacksmith_roof.set(Blocks.stone_slab2.getDefaultState().withProperty(BlockStoneSlabNew.VARIANT, BlockStoneSlabNew.EnumType.RED_SANDSTONE));
-                door.set(Blocks.acacia_door);
-                break;
-        }
+        this.name = name;
 
     }
 
-    @Nullable
     public static VillageMaterial getForBiome(BiomeGenBase biome) {
-        return new VillageMaterial(Preset.ACACIA);
+        return new VillageMaterial("");
+    }
+
+    public Map<String, VillageMaterialSwap> asMap() {
+        Map<String, VillageMaterialSwap> map = new HashMap<String, VillageMaterialSwap>();
+        map.put("path", this.path);
+	    map.put("foundation", this.foundation);
+	    map.put("wall", this.wall);
+	    map.put("roof", this.roof);
+	    map.put("hut_roof", this.roof);
+	    map.put("corner", this.corner);
+	    map.put("stairs", this.stairs);
+	    map.put("blacksmith_roof", this.blacksmith_roof);
+	    map.put("fence", this.fence);
+	    map.put("door", this.door);
+	    map.put("church_block", this.church_block);
+	    map.put("church_stairs", this.church_stairs);
+	    map.put("window", this.window);
+	    map.put("window_shutters", this.window_shutters);
+	    map.put("farmland", this.farmland);
+	    map.put("farm_border", this.farm_border);
+	    map.put("garden_ground", this.garden_ground);
+	    map.put("table_top", this.table_top);
+	    map.put("chair", this.chair);
+	    map.put("chopping_block", this.chopping_block);
+	    map.put("anvil", this.anvil);
+	    map.put("well_post", this.well_post);
+	    map.put("well_block", this.well_block);
+	    map.put("lamp_post", this.lamp_post);
+	    map.put("lamp_block", this.lamp_block);
+        return map;
     }
 }

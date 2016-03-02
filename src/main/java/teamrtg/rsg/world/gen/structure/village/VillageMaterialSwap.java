@@ -2,21 +2,25 @@ package teamrtg.rsg.world.gen.structure.village;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import teamrtg.rsg.util.Logger;
+
+import java.util.Random;
+
 
 /**
  * The exact materials to be swapped on village generation
  */
 public class VillageMaterialSwap {
 
-    private IBlockState defaultBlock;
-    private IBlockState materialBlock = null;
+    private IBlockState[] defaultBlock;
+    private IBlockState[] materialBlock = null;
     private boolean preserveMeta;
 
     /**
      * @param defaultBlock the block to replace
      */
-    public VillageMaterialSwap(IBlockState defaultBlock) {
+    public VillageMaterialSwap(IBlockState... defaultBlock) {
         this.defaultBlock = defaultBlock;
     }
 
@@ -24,8 +28,11 @@ public class VillageMaterialSwap {
      * Will turn on preserveMeta
      * @param defaultBlock the block to replace
      */
-    public VillageMaterialSwap(Block defaultBlock) {
-        this.defaultBlock = defaultBlock.getDefaultState();
+    public VillageMaterialSwap(Block... defaultBlock) {
+	    this.defaultBlock = new IBlockState[0];
+	    for (int i = 0; i < defaultBlock.length; i++) {
+		    this.defaultBlock[i] = defaultBlock[i].getDefaultState();
+	    }
         this.preserveMeta = true;
     }
 
@@ -36,9 +43,11 @@ public class VillageMaterialSwap {
     public IBlockState get() {
         return this.get(0);
     }
+
     public IBlockState get(int defaultMeta) {
         IBlockState result;
-        if (materialBlock != null) result = materialBlock;
+	    int rand = Minecraft.getMinecraft().theWorld
+	    if (materialBlock != null) result = materialBlock;
         else result = defaultBlock;
         if (preserveMeta) result = result.getBlock().getStateFromMeta(defaultMeta);
         return result;

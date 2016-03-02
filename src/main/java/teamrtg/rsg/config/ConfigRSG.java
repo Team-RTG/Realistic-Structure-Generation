@@ -9,6 +9,20 @@ public class ConfigRSG
 {
 	public static Configuration config;
 
+	enum Categories {
+		VILLAGE_MATERIALS("villages.materials");
+
+		public String s;
+
+		Categories(String s) {
+			this.s = s;
+		}
+
+		public String append(String s1) {
+			return this.s + "." + s1;
+		}
+	}
+
 	/*======================== VILLAGES ========================*/
 
 	public static int villageSize = 0;

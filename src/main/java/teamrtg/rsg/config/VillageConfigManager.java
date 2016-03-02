@@ -1,42 +1,63 @@
 package teamrtg.rsg.config;
 
 import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import teamrtg.rsg.util.Logger;
+import teamrtg.rsg.world.gen.structure.village.VillageMaterial;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class VillageConfigManager
 {
-    public static Map<Integer, VillageConfig> biomeConfigMap = new HashMap<Integer, VillageConfig>();
 
-    public static void initBiomeConfigs()
+	public static Configuration config;
+
+	public static Map<Integer, VillageMaterial> biomeVillageConfigs;
+
+	public static void init(File configFile)
+	{
+		config = new Configuration(configFile);
+
+		try
+		{
+			config.load();
+
+			setBiomeConfigsFromUserConfigs(config);
+		}
+		catch (Exception e)
+		{
+			Logger.error("RSG has had a problem loading Village configuration.");
+		}
+		finally
+		{
+			if (config.hasChanged())
+			{
+				config.save();
+			}
+		}
+	}
+
+    public static void setBiomeConfigsFromUserConfigs(Configuration config)
     {
-	    biomeConfigMap.clear();
-        BiomeGenBase[] biomes = BiomeGenBase.getBiomeGenArray();
-        for ( BiomeGenBase biome : biomes ) {
-            biomeConfigMap.put(biome.biomeID, new VillageConfig(biome.biomeName));
-        }
-    }
-    public static void setBiomeConfigsFromUserConfigs(VillageConfig[] villageConfig, Configuration config)
-    {
-        
-        for (int i = 0; i < villageConfig.length; i++) {
-            
-            String categoryName = "village.materials." + villageConfig[i].materialName;
+        ConfigCategory[] presets = (ConfigCategory[]) config.getCategory("village.materials").getChildren().toArray();
+	    biomeVillageConfigs.clear();
+        for (int i = 0; i < presets.length; i++) {
+	        ConfigCategory preset = presets[i];
+            String categoryName = preset.getName();
+	        config.getInt()
             ArrayList<ConfigProperty> properties = villageConfig[i].getProperties();
             
             for (int j = 0; j < properties.size(); j++) {
-                
+
                 ConfigProperty prop = properties.get(j);
                                 
                 switch (prop.type) {
                     
                     case INTEGER:
-                        
+
                         prop.valueInt = config.getInt(
                             prop.name,
                             categoryName,

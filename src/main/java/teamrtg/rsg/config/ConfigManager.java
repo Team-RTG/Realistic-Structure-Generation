@@ -6,6 +6,7 @@ public class ConfigManager
 {
     
     public static File rsgConfigFile;
+    public static File villageConfigFile;
 
     private ConfigRSG configRSG = new ConfigRSG();
     public ConfigRSG rsg() {
@@ -16,8 +17,10 @@ public class ConfigManager
     {
     
         rsgConfigFile = new File(configpath + "RSG.cfg");
+        villageConfigFile = new File(configpath + "Villages.cfg");
         
         ConfigRSG.init(rsgConfigFile);
+        VillageConfigManager.init(villageConfigFile);
 
     }
 }
