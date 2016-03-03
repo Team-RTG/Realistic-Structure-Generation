@@ -18,7 +18,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 
-version = "0.0.1" + (System.getenv("TRAVIS") ? "-DEV-" + System.getenv('TRAVIS_BUILD_ID') : "")
+version = "0.0.1" + (System.getenv("TRAVIS") ? "-DEV-" + System.getenv('TRAVIS_BUILD_NUMBER') : "")
 group= "teamrtg.rsg" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "RSG"
 def versionName = "1.8.9-" + project.version
