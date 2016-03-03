@@ -5,6 +5,7 @@ import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.config.Configuration;
+import org.apache.commons.lang3.ArrayUtils;
 import teamrtg.rsg.config.util.BlockStringUtil;
 import teamrtg.rsg.util.Logger;
 import teamrtg.rsg.util.RSGException;
@@ -13,6 +14,8 @@ import teamrtg.rsg.world.gen.structure.village.VillageMaterialSwap;
 import teamrtg.rsg.world.gen.structure.village.VillageMaterialSwap.EnumSwap;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static teamrtg.rsg.world.gen.structure.village.VillageMaterialSwap.EnumSwap.*;
@@ -22,16 +25,17 @@ public class VillageConfigManager
 
 	public static Configuration config;
 
-	public static VillageMaterial[] materials;
+	public static List<VillageMaterial> materials;
 
 	public static void init(File configFile) {
 		config = new Configuration(configFile);
 
 		try {
 			config.load();
-			setupMaterials();
+			setupMaterials(config);
 		} catch (Exception e) {
-			Logger.error("RSG has had a problem loading Village configuration.");
+			Logger.error("RSG has had a problem loading Village configuration: %s", e);
+			e.printStackTrace();
 		} finally {
 			if (config.hasChanged()) {
 				config.save();
@@ -56,25 +60,26 @@ public class VillageConfigManager
 				}
 			}
 		}
-		String[] as2 = new String[0];
-		for (int i = 0; i < material.biomes.length; i++) {
-			as2[i] = String.valueOf(material.biomes[i]);
+		List<String> as2 = new ArrayList<String>();
+		for (int biome : material.biomes) {
+			as2.add(String.valueOf(biome));
 		}
 		String[] as3 = config.getStringList(
 				"biomes",
 				"villages.materials." + material.name,
-				as2,
+				as2.toArray(new String[as2.size()]),
 				""
 		);
-		material.biomes = new int[0];
-		for (int i = 0; i < as3.length; i++) {
-			material.biomes[i] = Integer.valueOf(as3[i]);
+		List<Integer> ai1 = new ArrayList<Integer>();
+		for (String s: as3) {
+			ai1.add(Integer.valueOf(s));
 		}
-		materials[materials.length] = material;
+		material.biomes = ArrayUtils.toPrimitive(ai1.toArray(new Integer[ai1.size()]));
+		materials.add(material);
 	}
 
-	public static void setupMaterials() {
-		materials = new VillageMaterial[0];
+	public static void setupMaterials(Configuration config) {
+		materials = new ArrayList<VillageMaterial>();
 		/* ====================== OAK ====================== */
 		VillageMaterial oak = new VillageMaterial("OAK");
 		oak.set(ANVIL, Blocks.anvil.getDefaultState());

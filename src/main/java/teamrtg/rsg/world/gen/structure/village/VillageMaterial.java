@@ -5,9 +5,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.world.biome.BiomeGenBase;
+import teamrtg.rsg.config.VillageConfigManager;
+import teamrtg.rsg.event.EventManagerRSG;
 import teamrtg.rsg.world.gen.structure.village.VillageMaterialSwap.EnumSwap;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static teamrtg.rsg.world.gen.structure.village.VillageMaterialSwap.EnumSwap.*;
@@ -18,7 +22,7 @@ import static teamrtg.rsg.world.gen.structure.village.VillageMaterialSwap.EnumSw
 public class VillageMaterial {
 
 	public String name;
-	public int[] biomes;
+	public int[] biomes = new int[0];
 	public Map<EnumSwap, VillageMaterialSwap> swaps = new HashMap<EnumSwap, VillageMaterialSwap>();
 
     public VillageMaterial(String name) {
@@ -66,7 +70,16 @@ public class VillageMaterial {
 		return swaps.put(enumSwap, swap);
 	}
     public static VillageMaterial getForBiome(BiomeGenBase biome) {
-        return new VillageMaterial("");
+	    List<VillageMaterial> am1 = new ArrayList<VillageMaterial>();
+	    List<VillageMaterial> am2 = VillageConfigManager.materials;
+	    for (int i = 0; i < am2.size(); i++) {
+		    for (int j = 0; j < am2.get(i).biomes.length; j++) {
+			    if (am2.get(i).biomes[j] == biome.biomeID) am1.add(am2.get(i));
+		    }
+	    }
+	    if( am1.size() < 1 ) return null;
+	    int r = EventManagerRSG.rand.nextInt(am1.size());
+	    return am1.get(r - 1);
     }
 
 	public void setBiomes(int[] biomeIds) {

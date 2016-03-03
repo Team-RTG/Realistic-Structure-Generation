@@ -2,7 +2,11 @@ package teamrtg.rsg.world.gen.structure.village;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import scala.actors.threadpool.Arrays;
 import teamrtg.rsg.event.EventManagerRSG;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -47,14 +51,14 @@ public class VillageMaterialSwap {
 		}
 	}
 
-    private IBlockState[] materialBlocks = null;
+    private List<IBlockState> materialBlocks = null;
     private boolean preserveMeta;
 
     /**
      * @param states possible blocks
      */
     public VillageMaterialSwap(IBlockState... states) {
-        this.materialBlocks = states;
+        this.materialBlocks = Arrays.asList(states);
     }
 
     /**
@@ -62,9 +66,9 @@ public class VillageMaterialSwap {
      * @param blocks possible blocks
      */
     public VillageMaterialSwap(Block... blocks) {
-	    this.materialBlocks = new IBlockState[0];
-	    for (int i = 0; i < blocks.length; i++) {
-		    this.materialBlocks[i] = blocks[i].getDefaultState();
+	    this.materialBlocks = new ArrayList<IBlockState>();
+	    for (Block b : blocks) {
+		    this.materialBlocks.add(b.getDefaultState());
 	    }
         this.preserveMeta = true;
     }
@@ -74,30 +78,30 @@ public class VillageMaterialSwap {
     }
 
     public IBlockState get(int defaultMeta) {
-        int r = EventManagerRSG.world.rand.nextInt(materialBlocks.length - 1);
-	    IBlockState result = materialBlocks[r];
+        int r = EventManagerRSG.rand.nextInt(materialBlocks.size() - 1);
+	    IBlockState result = materialBlocks.get(r);
         if (preserveMeta) result = result.getBlock().getStateFromMeta(defaultMeta);
         return result;
     }
 
 	public IBlockState[] getAll() {
-		return this.materialBlocks;
+		return this.materialBlocks.toArray(new IBlockState[materialBlocks.size()]);
 	}
 
     /**
      * Sets the material specific blockstate
      */
     public void set(IBlockState... materialBlock) {
-        this.materialBlocks = materialBlock;
+        this.materialBlocks = Arrays.asList(materialBlock);
     }
 
     /**
      * Will preserve the metadata of the original block when replaced.
      */
     public void set(Block... materialBlock) {
-	    this.materialBlocks = new IBlockState[0];
+	    this.materialBlocks.clear();
 	    for (int i = 0; i < materialBlock.length; i++) {
-			this.materialBlocks[i] = materialBlock[i].getDefaultState();
+			this.materialBlocks.add(materialBlock[i].getDefaultState());
 	    }
         this.preserveMeta = true;
     }

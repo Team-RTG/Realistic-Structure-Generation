@@ -6,6 +6,9 @@ import teamrtg.rsg.util.RSGException;
 import teamrtg.rsg.util.RSGException.Type;
 import teamrtg.rsg.world.gen.structure.village.VillageMaterialSwap;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author topisani
  */
@@ -15,11 +18,11 @@ public class BlockStringUtil {
 		return blockState.getBlock().getRegistryName() + "/" + blockState.getBlock().getMetaFromState(blockState);
 	}
 	public static String[] statesToStrings(IBlockState[] blockStates) {
-		String[] s = new String[0];
+		List<String> s = new ArrayList<String>();
 		for (int i = 0; i < blockStates.length; i++) {
-			s[i] = stateToString(blockStates[0]);
+			s.add(stateToString(blockStates[0]));
 		}
-		return s;
+		return s.toArray(new String[s.size()]);
 	}
 
 	public static IBlockState stringToState(String string) throws RSGException {
@@ -36,11 +39,11 @@ public class BlockStringUtil {
 	}
 
 	public static IBlockState[] stringsToStates(String[] strings) throws RSGException {
-		IBlockState[] s = new IBlockState[0];
+		List<IBlockState> s = new ArrayList<IBlockState>();
 		for (int i = 0; i < strings.length; i++) {
-			s[i] = stringToState(strings[0]);
+			s.add(stringToState(strings[0]));
 		}
-		return s;
+		return s.toArray(new IBlockState[s.size()]);
 	}
 
 	public static VillageMaterialSwap stringsToSwap(String... strings) throws RSGException {
