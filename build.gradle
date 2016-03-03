@@ -12,11 +12,12 @@ buildscript {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
-
 plugins {
     id "com.jfrog.bintray" version "1.6"
 }
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+
 
 version = "0.0.1" + (System.getenv("TRAVIS") ? "-DEV-" + System.getenv('TRAVIS_BUILD_ID') : "")
 group= "teamrtg.rsg" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
