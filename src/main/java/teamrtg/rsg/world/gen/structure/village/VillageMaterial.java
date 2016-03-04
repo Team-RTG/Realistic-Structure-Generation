@@ -24,6 +24,7 @@ public class VillageMaterial {
 	public String name;
 	public int[] biomes = new int[0];
 	public Map<EnumSwap, VillageMaterialSwap> swaps = new HashMap<EnumSwap, VillageMaterialSwap>();
+	public boolean generate = true;
 
     public VillageMaterial(String name) {
 	    swaps.clear();
@@ -77,9 +78,13 @@ public class VillageMaterial {
 			    if (am2.get(i).biomes[j] == biome.biomeID) am1.add(am2.get(i));
 		    }
 	    }
-	    if( am1.size() < 1 ) return null;
+	    if( am1.size() < 1 ) {
+		    VillageMaterial mat = new VillageMaterial("OAK");
+		    mat.generate = false;
+		    return mat;
+	    }
 	    int r = EventManagerRSG.rand.nextInt(am1.size());
-	    return am1.get(r - 1);
+	    return am1.get(r);
     }
 
 	public void setBiomes(int[] biomeIds) {

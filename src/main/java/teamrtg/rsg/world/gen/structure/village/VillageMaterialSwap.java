@@ -78,7 +78,7 @@ public class VillageMaterialSwap {
     }
 
     public IBlockState get(int defaultMeta) {
-        int r = EventManagerRSG.rand.nextInt(materialBlocks.size() - 1);
+        int r = EventManagerRSG.rand.nextInt(materialBlocks.size());
 	    IBlockState result = materialBlocks.get(r);
         if (preserveMeta) result = result.getBlock().getStateFromMeta(defaultMeta);
         return result;

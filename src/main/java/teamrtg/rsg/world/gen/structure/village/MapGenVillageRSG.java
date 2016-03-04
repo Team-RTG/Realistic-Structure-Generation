@@ -97,7 +97,7 @@ public class MapGenVillageRSG extends MapGenVillage
             BiomeGenBase biome = cmr.getBiomeGenerator(new BlockPos(worldX, 0, worldZ));
 	        VillageMaterial material = VillageMaterial.getForBiome(biome);
 
-            if (material != null) {
+            if (material.generate) {
                 canSpawnVillage = true;
             }
         }
@@ -121,6 +121,8 @@ public class MapGenVillageRSG extends MapGenVillage
     	public Start(World p_i2092_1_, Random p_i2092_2_, int p_i2092_3_, int p_i2092_4_, int p_i2092_5_)
     	{
     		super(p_i2092_3_, p_i2092_4_);
+		    BiomeGenBase biome = p_i2092_1_.getBiomeGenForCoords(new BlockPos(p_i2092_3_ * 16, 0, p_i2092_4_ * 16));
+		    if(VillageMaterial.getForBiome(biome) == null) return;
     		List list = StructureVillagePiecesRSG.getStructureVillageWeightedPieceList(p_i2092_2_, p_i2092_5_);
     		StructureVillagePiecesRSG.Start start = new StructureVillagePiecesRSG.Start(p_i2092_1_.getWorldChunkManager(), 0, p_i2092_2_, (p_i2092_3_ << 4) + 2, (p_i2092_4_ << 4) + 2, list, p_i2092_5_);
     		this.components.add(start);

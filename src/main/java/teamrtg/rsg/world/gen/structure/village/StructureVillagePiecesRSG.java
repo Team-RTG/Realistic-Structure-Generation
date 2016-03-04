@@ -536,7 +536,10 @@ public class StructureVillagePiecesRSG extends StructureVillagePieces
 
         private Block func_151560_a(Random rand)
         {
-            return this.material.get(CROPS).get().getBlock();
+            return this.material
+		            .get(CROPS)
+		            .get()
+		            .getBlock();
         }
 
         public static StructureVillagePiecesRSG.Field2 func_175852_a(StructureVillagePiecesRSG.Start start, List<StructureComponent> p_175852_1_, Random rand, int p_175852_3_, int p_175852_4_, int p_175852_5_, EnumFacing facing, int p_175852_7_)
@@ -1616,6 +1619,9 @@ public class StructureVillagePiecesRSG extends StructureVillagePieces
                 startPiece = start;
                 biome = start.biome;
                 material = VillageMaterial.getForBiome(biome);
+	            if( !material.generate ) {
+		            Logger.error("How did you do that? we dont do villages in this biome!");
+	            }
             }
         }
 
