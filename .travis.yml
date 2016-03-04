@@ -17,5 +17,6 @@ deploy:
   upload-dir: RSG/
   skip_cleanup: true
   acl: public_read
+  region: EU
   on:
     repo: Team-RTG/Realistic-Structure-Generation
