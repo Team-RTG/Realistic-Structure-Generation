@@ -14,7 +14,7 @@ deploy:
     secure: aBFB1yNB2RNdP+ofDym34/Eeeo4qDNT3IDR8ebFC+yv2a7q8XtDjfDABaDhGRtdScWeYAdHvvY3JodEQ9JBQNcuTESisqmqLTsqf1Kd67eiEkhvifPymFqfizzagVfX2iF1ktNYsXrpgYOCRlHyKcY2ExK/18EWTn2MYjeVN4FAcWeoCHdStpaMC4gHbcYjYfyXLq31jhJat5ttG26N3QeBK5SHroxl/6YCHoxnnJEwVAIPdXjwappxTSAaK98XuYTAuKTJu+jY4QDYRJW3ggzPa1v2efnIsoe+GMxP0ZaOPJJG1wByJjXGQZcQPpOHhsFL8onKROoEhVxngL5u2ia9Q7QQRfcLfypnsZ8jB3UgLZ2rxT52J0USIR6mjDz1Y4GpQercbbuSZiPYIZC4DffDEdpRWq1e8ZYPB8x7LQv5k9SUOCSkr9mXSAEhQB3YlqlM5ImQ5oquBsnXH4td+ofr8kuF6Cb27dZVluhyim/aXNjIXm7IsbTC+nxk84CTE/6JFuw9yfB5aNEN+9ycIsdnV05VEbc4rppR/MC/Ln9wRRxd8mPEU31O9xyi7Mi9H0YHAHUB9uRa0JK3CmPtriPPQtDmQOiivjmRE54bFPnob4NM8SeulATcZdZvWD0a1jTcsZBX8vqifBV+e1nKa/BZdy+prE68raBgsa9HwB+8=
   bucket: travis.teamrtg.org
   local-dir: build/libs/
-  upload-dir: RSG/
+  upload-dir: RSG
   skip_cleanup: true
   acl: public_read
   region: "ap-southeast-2"
