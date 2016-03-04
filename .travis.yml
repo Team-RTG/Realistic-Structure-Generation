@@ -1,6 +1,6 @@
 language: java
-install: "./gradlew setupDevWorkspace"
-script: "./gradlew build"
+install: "./gradlew setupCIWorkspace"
+script: "./gradlew jar"
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
