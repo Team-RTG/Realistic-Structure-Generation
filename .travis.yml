@@ -1,10 +1,21 @@
 language: java
-install: ./gradlew setupDevWorkspace
-script: ./gradlew build
+install: "./gradlew setupDevWorkspace"
+script: "./gradlew build"
 before_cache:
-  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-after_success: ./gradlew bintrayUpload
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+after_success: "./gradlew bintrayUpload"
+deploy:
+  provider: s3
+  access_key_id: AKIAJD52NMRJM5EIGQZQ
+  secret_access_key:
+    secure: aBFB1yNB2RNdP+ofDym34/Eeeo4qDNT3IDR8ebFC+yv2a7q8XtDjfDABaDhGRtdScWeYAdHvvY3JodEQ9JBQNcuTESisqmqLTsqf1Kd67eiEkhvifPymFqfizzagVfX2iF1ktNYsXrpgYOCRlHyKcY2ExK/18EWTn2MYjeVN4FAcWeoCHdStpaMC4gHbcYjYfyXLq31jhJat5ttG26N3QeBK5SHroxl/6YCHoxnnJEwVAIPdXjwappxTSAaK98XuYTAuKTJu+jY4QDYRJW3ggzPa1v2efnIsoe+GMxP0ZaOPJJG1wByJjXGQZcQPpOHhsFL8onKROoEhVxngL5u2ia9Q7QQRfcLfypnsZ8jB3UgLZ2rxT52J0USIR6mjDz1Y4GpQercbbuSZiPYIZC4DffDEdpRWq1e8ZYPB8x7LQv5k9SUOCSkr9mXSAEhQB3YlqlM5ImQ5oquBsnXH4td+ofr8kuF6Cb27dZVluhyim/aXNjIXm7IsbTC+nxk84CTE/6JFuw9yfB5aNEN+9ycIsdnV05VEbc4rppR/MC/Ln9wRRxd8mPEU31O9xyi7Mi9H0YHAHUB9uRa0JK3CmPtriPPQtDmQOiivjmRE54bFPnob4NM8SeulATcZdZvWD0a1jTcsZBX8vqifBV+e1nKa/BZdy+prE68raBgsa9HwB+8=
+  bucket: travis.teamrtg.org
+  local-dir: build/libs/
+  upload-dir: RSG/
+  acl: public_read
+  on:
+    repo: Team-RTG/Realistic-Structure-Generation
