@@ -21,7 +21,7 @@ public class EventManagerRSG {
 		StructureVillagePiecesRSG.registerVillagePieces();
 	}
 
-	@SubscribeEvent(priority = EventPriority.LOW)
+	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void initMapGen(InitMapGenEvent event) {
 
 		if (event.type == InitMapGenEvent.EventType.VILLAGE) {
