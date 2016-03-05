@@ -88,6 +88,8 @@ public class VillageConfigManager
 				BiomeGenBase.plains.biomeID,
 				BiomeGenBase.forest.biomeID,
 				BiomeGenBase.forestHills.biomeID,
+				BiomeGenBase.forest.biomeID,
+				BiomeGenBase.forestHills.biomeID,
 				BiomeGenBase.extremeHillsEdge.biomeID,
 				BiomeGenBase.extremeHillsPlus.biomeID
 		});
@@ -138,7 +140,9 @@ public class VillageConfigManager
 		birch.set(LAMP_POST, Blocks.birch_fence.getDefaultState());
 		birch.setBiomes( new int[]{
 				BiomeGenBase.birchForest.biomeID,
-				BiomeGenBase.birchForestHills.biomeID
+				BiomeGenBase.birchForestHills.biomeID,
+				BiomeGenBase.forest.biomeID,
+				BiomeGenBase.forestHills.biomeID,
 		});
 		updateMaterialWithConfig(birch);
 
@@ -205,7 +209,7 @@ public class VillageConfigManager
 
 		String[] cats = config.getCategoryNames().toArray(new String[config.getCategoryNames().size()]);
 		for (int i = 0; i < cats.length; i++) {
-			if(!materials.keySet().contains(cats[i])) {
+			if(!materials.keySet().contains(cats[i].replace("villages.materials.", ""))) {
 				updateMaterialWithConfig(new VillageMaterial(cats[i].toUpperCase()));
 			}
 		}
