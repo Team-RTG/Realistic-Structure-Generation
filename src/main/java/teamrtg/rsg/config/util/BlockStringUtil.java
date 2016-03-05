@@ -17,10 +17,11 @@ public class BlockStringUtil {
 	public static String stateToString(IBlockState blockState) {
 		return blockState.getBlock().getRegistryName() + "/" + blockState.getBlock().getMetaFromState(blockState);
 	}
-	public static String[] statesToStrings(IBlockState[] blockStates) {
+	public static String[] statesToStrings(IBlockState[] blockStates, boolean preserveMeta) {
 		List<String> s = new ArrayList<String>();
 		for (int i = 0; i < blockStates.length; i++) {
-			s.add(stateToString(blockStates[0]));
+			int meta = (preserveMeta)? -1 : blockStates[i].getBlock().getMetaFromState(blockStates[i]);
+			s.add(blockStates[i].getBlock().getRegistryName() + "/" + meta);
 		}
 		return s.toArray(new String[s.size()]);
 	}
@@ -52,6 +53,7 @@ public class BlockStringUtil {
 			Block b = Block.getBlockFromName(s[0]);
 			if ( b == null ) throw new RSGException(Type.CONFIG_SYNTAX, "Expected 'modID:blockId/metaValue', found " + strings[i]);
 			try {
+				if ( Integer.valueOf(s[1]) == -1) return new VillageMaterialSwap(b);
 				return new VillageMaterialSwap(b.getStateFromMeta(Integer.valueOf(s[1])));
 			} catch (Exception e) {
 				return new VillageMaterialSwap(b);

@@ -1620,7 +1620,7 @@ public class StructureVillagePiecesRSG extends StructureVillagePieces
                 biome = start.biome;
                 material = VillageMaterial.getForBiome(biome);
 	            if( !material.generate ) {
-		            Logger.error("How did you do that? we dont do villages in this biome!");
+		            Logger.error("How did you do that? we don't do villages in this biome!");
 	            }
             }
         }

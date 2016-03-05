@@ -72,10 +72,10 @@ public class VillageMaterial {
 	}
     public static VillageMaterial getForBiome(BiomeGenBase biome) {
 	    List<VillageMaterial> am1 = new ArrayList<VillageMaterial>();
-	    List<VillageMaterial> am2 = VillageConfigManager.materials;
-	    for (int i = 0; i < am2.size(); i++) {
-		    for (int j = 0; j < am2.get(i).biomes.length; j++) {
-			    if (am2.get(i).biomes[j] == biome.biomeID) am1.add(am2.get(i));
+	    VillageMaterial[] am2 = VillageConfigManager.materials.values().toArray(new VillageMaterial[VillageConfigManager.materials.values().size()]);
+	    for (int i = 0; i < am2.length; i++) {
+		    for (int j = 0; j < am2[i].biomes.length; j++) {
+			    if (am2[i].biomes[j] == biome.biomeID) am1.add(am2[i]);
 		    }
 	    }
 	    if( am1.size() < 1 ) {

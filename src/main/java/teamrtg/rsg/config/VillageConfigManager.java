@@ -15,6 +15,7 @@ import teamrtg.rsg.world.gen.structure.village.VillageMaterialSwap.EnumSwap;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class VillageConfigManager
 
 	public static Configuration config;
 
-	public static List<VillageMaterial> materials;
+	public static Map<String, VillageMaterial> materials;
 
 	public static void init(File configFile) {
 		config = new Configuration(configFile);
@@ -49,7 +50,7 @@ public class VillageConfigManager
 			String[] as1 = config.getStringList(
 					k.name(),
 					"villages.materials." + material.name + ".blocks",
-					BlockStringUtil.statesToStrings(map.get(k).getAll()),
+					BlockStringUtil.statesToStrings(map.get(k).getAll(), map.get(k).preserveMeta),
 					""
 			);
 			if (as1.length > 0) {
@@ -75,11 +76,11 @@ public class VillageConfigManager
 			ai1.add(Integer.valueOf(s));
 		}
 		material.biomes = ArrayUtils.toPrimitive(ai1.toArray(new Integer[ai1.size()]));
-		materials.add(material);
+		materials.put(material.name, material);
 	}
 
 	public static void setupMaterials(Configuration config) {
-		materials = new ArrayList<VillageMaterial>();
+		materials = new HashMap<String, VillageMaterial>();
 		/* ====================== OAK ====================== */
 		VillageMaterial oak = new VillageMaterial("OAK");
 		oak.set(ANVIL, Blocks.anvil.getDefaultState());
@@ -196,11 +197,18 @@ public class VillageConfigManager
 		dark_oak.set(ANVIL, Blocks.anvil.getDefaultState());
 		dark_oak.set(WELL_POST, Blocks.dark_oak_fence.getDefaultState());
 		dark_oak.set(LAMP_POST, Blocks.dark_oak_fence.getDefaultState());
-		acacia.setBiomes( new int[]{
+		dark_oak.setBiomes( new int[]{
 				BiomeGenBase.swampland.biomeID,
 				BiomeGenBase.roofedForest.biomeID
 		});
 		updateMaterialWithConfig(dark_oak);
+
+		String[] cats = config.getCategoryNames().toArray(new String[config.getCategoryNames().size()]);
+		for (int i = 0; i < cats.length; i++) {
+			if(!materials.keySet().contains(cats[i])) {
+				updateMaterialWithConfig(new VillageMaterial(cats[i].toUpperCase()));
+			}
+		}
 	}
 
 }

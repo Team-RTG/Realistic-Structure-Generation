@@ -52,7 +52,7 @@ public class VillageMaterialSwap {
 	}
 
     private List<IBlockState> materialBlocks = null;
-    private boolean preserveMeta;
+    public boolean preserveMeta = false;
 
     /**
      * @param states possible blocks
