@@ -12,13 +12,11 @@ buildscript {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
     }
 }
-plugins {
-    id "com.jfrog.bintray" version "1.6"
-}
+
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 
-version = "0.0.1" + (System.getenv("TRAVIS") ? "-DEV-" + System.getenv('TRAVIS_BUILD_NUMBER') : "")
+version = (System.getenv("TRAVIS") ? "DEV-" + System.getenv('TRAVIS_BUILD_NUMBER') : "0.0.1")
 group= "teamrtg.rsg" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "RSG"
 def versionName = "1.8.9-" + project.version
@@ -49,25 +47,5 @@ processResources
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
-    }
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    pkg {
-        repo = 'maven'
-        name = 'RealisticStructureGeneration'
-        //userOrg = 'bintray_user' change to TeamRTG later
-        licenses = ['GPL-3.0']
-        vcsUrl = 'https://github.com/Team-RTG/Realistic-Structure-Generation.git'
-        version {
-            name = versionName
-            released  = new Date()
-        }
-    }
-    filesSpec {
-        from 'build/libs'
-        into '.'
     }
 }
