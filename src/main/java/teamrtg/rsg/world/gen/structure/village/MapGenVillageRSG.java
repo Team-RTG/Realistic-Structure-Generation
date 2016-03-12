@@ -12,6 +12,7 @@ import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import teamrtg.rsg.config.ConfigRSG;
 import teamrtg.rsg.util.Logger;
+import teamrtg.rsg.world.gen.structure.village.buildings.VillagePieceStart;
 
 import java.util.Iterator;
 import java.util.List;
@@ -124,7 +125,7 @@ public class MapGenVillageRSG extends MapGenVillage
 		    BiomeGenBase biome = p_i2092_1_.getBiomeGenForCoords(new BlockPos(p_i2092_3_ * 16, 0, p_i2092_4_ * 16));
 		    if(VillageMaterial.getForBiome(biome) == null) return;
     		List list = StructureVillagePiecesRSG.getStructureVillageWeightedPieceList(p_i2092_2_, p_i2092_5_);
-    		StructureVillagePiecesRSG.Start start = new StructureVillagePiecesRSG.Start(p_i2092_1_.getWorldChunkManager(), 0, p_i2092_2_, (p_i2092_3_ << 4) + 2, (p_i2092_4_ << 4) + 2, list, p_i2092_5_);
+    		VillagePieceStart start = new VillagePieceStart(p_i2092_1_.getWorldChunkManager(), 0, p_i2092_2_, (p_i2092_3_ << 4) + 2, (p_i2092_4_ << 4) + 2, list, p_i2092_5_);
     		this.components.add(start);
     		start.buildComponent(start, this.components, p_i2092_2_);
     		List list1 = start.field_74930_j;
